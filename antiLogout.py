@@ -1,16 +1,14 @@
+#Import from standard library
 import time
 import os
 
-def anyKey():
-    input("Press enter to continue...")
-    exit(0)
-
+#Import pynput, but if it fails, pip install it and restart script
 try:
     from pynput.keyboard import Key, Controller
 except:
     os.system("pip install pynput")
     os.system("python antiLogout.py")
-    anyKey()
+    exit(0)
 
 #Startup
 print("Started")
@@ -45,5 +43,5 @@ while(True):
     except:
         break
 print("\nStopped")
-anyKey()
-
+input("Press enter to continue...")
+exit(0)
