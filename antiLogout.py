@@ -1,6 +1,7 @@
 #Import from standard library
 import time
 import os
+import re
 
 #Import pynput, but if it fails, pip install it and restart script
 try:
@@ -15,11 +16,27 @@ print("Started")
 
 #Remvove excess copies of teams and chrome shortcuts that onedrive creates
 
-#   //TODO
+##Setup regex
+chromeRe = "(Google Chrome - Copy)( ){0,1}(\(){0,1}(\d)*(\)){0,1}(\.lnk)"
+teamsRe = "(Microsoft Teams - Copy)( ){0,1}(\(){0,1}(\d)*(\)){0,1}(\.lnk)"
+
+print("Finding excess shortcuts...")
+#Get list of files in current dir
+files = os.listdir(os.getcwd())
+toDelete = []
+
+#For each file determine if it matches either pattern
+for fileName in files:
+    if(re.match(chromeRe, fileName) or re.match(teamsRe, fileName)):
+        toDelete.append(fileName)
+
+#Remove all things on the toDelete list
+for i in range(0, len(toDelete)):
+    os.remove(toDelete[i])
+print("Removed excess shortcuts, you may need to refresh the desktop to see this")
 
 """
 Kill teams because it's a complete load of shit and nobody wants it.
-
 Fucking seriously, Microsoft. Not content with ruining the fuck out
 of computers everywhere with your bloated, buggy, garbage OS and 
 invading the workspace with your fucking garbage release of whatever 
@@ -33,7 +50,6 @@ because these people actually know what they're doing
 But OH NO I'm just a fucking lowley PhD student. My opinions are not
 the concern of the fucking university higer-ups who are quite happy
 to bend over and let microsoft fuck them over.
-
 Fuck you microsoft
 """
 
