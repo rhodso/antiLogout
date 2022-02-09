@@ -7,9 +7,11 @@ import re
 try:
     from pynput.keyboard import Key, Controller
 except:
+    print("Dependency not detected")
     os.system("pip install pynput")
     os.system("python antiLogout.py")
-    exit(0)
+    time.sleep(0.2)
+    exit()
 
 #Startup
 print("Started")
